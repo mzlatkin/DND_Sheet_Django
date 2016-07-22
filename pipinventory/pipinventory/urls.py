@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from rest_framework import routers
-from pipinventory.fatman import views
+from fatman import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
