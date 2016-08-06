@@ -88,7 +88,6 @@ class SkillAssociation(models.Model):
         ordering = ('skill',)
 
 
-
 class Feat(models.Model):
     name = models.TextField(default='')
     disscription = models.TextField(default='')
@@ -141,6 +140,14 @@ class ArmorAssociation(models.Model):
     class Meta:
         ordering = ('item',)
 
+
+class WeaponType(models.Model):
+    weapon_type = models.TextField(default='')
+
+    class Meta:
+        ordering = ('weapon_type',)
+
+
 class Weapon(models.Model):
     item = models.ForeignKey(Item, related_name='weapon')
     weapon_type = models.ForeignKey(WeaponType, related_name='weapon')
@@ -152,11 +159,6 @@ class Weapon(models.Model):
     class Meta:
         ordering = ('name',)
 
-class WeaponType(models.Model):
-    weapon_type = models.TextField(default='')
-
-    class Meta:
-        ordering = ('weapon_type',)
 
 class WeaponAssociation(models.Model):
     weapon = models.ForeignKey(Weapon, related_name='weapon_association')
