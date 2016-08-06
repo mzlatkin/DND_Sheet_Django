@@ -47,6 +47,22 @@ class Race(models.Model):
     class Meta:
         ordering = ('name',)
 
+class Attribute(models.Model):
+    name = models.TextField(default='')
+    disscription = models.TextField(default='')
+
+    class Meta:
+        ordering = ('name',)
+
+class AttributeAssociation(models.Model):
+    character = models.ForeignKey(Character, related_name='attribute_association')
+    attribute = models.ForeignKey(Attribute, related_name='attribute_association')
+    rank = models.IntegerField(default=0)
+    effect = models.IntegerField(default=0)
+    
+    class Meta:
+        ordering = ('attribute',)
+
 class Skill(models.Model):
     name = models.TextField(default='')
     disscription = models.TextField(default='')
@@ -71,21 +87,7 @@ class SkillAssociation(models.Model):
     class Meta:
         ordering = ('skill',)
 
-class Attribute(models.Model):
-    name = models.TextField(default='')
-    disscription = models.TextField(default='')
 
-    class Meta:
-        ordering = ('name',)
-
-class AttributeAssociation(models.Model):
-    character = models.ForeignKey(Character, related_name='attribute_association')
-    attribute = models.ForeignKey(Attribute, related_name='attribute_association')
-    rank = models.IntegerField(default=0)
-    effect = models.IntegerField(default=0)
-    
-    class Meta:
-        ordering = ('attribute',)
 
 class Feat(models.Model):
     name = models.TextField(default='')
