@@ -1,19 +1,22 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User,Character,CharacterDetail
 from rest_framework import viewsets
-from fatman.serializers import UserSerializer, GroupSerializer
-
+from fatman.serializers import UserSerializer,CharacterSerializer,CharacterDetailSerializer
+from rest_framework import permissions
 
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+    model = User
+    queryset = User.objects.all()
+
+class CharacterViewSet(viewsets.ModelViewSet):
+    queryset = Character.objects.all().select_related('local_user','status')
+    model = Character
+    serializer_class = CharacterSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+class CharacterDetailViewSet(viewsets.ModelViewSet):
+    queryset = CharacterDetail.objects.all().select_related('local_user','status')
+    model = CharacterDetail
+    serializer_class = CharacterDetailSerializer
+    permission_classes = (permissions.IsAuthenticated,)
