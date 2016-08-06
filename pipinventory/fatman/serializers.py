@@ -28,7 +28,7 @@ class CharacterSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('pk', 'account', 'name', 'created', 'updated','is_active')
 
 class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
-    Character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
+    character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
 
     class Meta:
         model = CharacterDetail
