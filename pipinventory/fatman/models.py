@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Character(models.Model):
     account = models.ForeignKey('auth.User', related_name='account')
     name = models.TextField(default='')

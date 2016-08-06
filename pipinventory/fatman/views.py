@@ -1,6 +1,7 @@
-from django.contrib.auth.models import User,Character,CharacterDetail
+from django.contrib.auth.models import User
 from rest_framework import viewsets
 from fatman.serializers import UserSerializer,CharacterSerializer,CharacterDetailSerializer
+from fatman.models import Character,CharacterDetail
 from rest_framework import permissions
 
 class UserViewSet(viewsets.ModelViewSet):
