@@ -159,7 +159,6 @@ class Weapon(models.Model):
     class Meta:
         ordering = ('name',)
 
-
 class WeaponAssociation(models.Model):
     weapon = models.ForeignKey(Weapon, related_name='weapon_association')
     item = models.ForeignKey(Item, related_name='weapon_association')
@@ -169,17 +168,17 @@ class WeaponAssociation(models.Model):
     class Meta:
         ordering = ('item',)
 
-class Spells(models.Model):
+class Spell(models.Model):
     name = models.TextField(default='')
     disscription = models.TextField(default='')
 
     class Meta:
         ordering = ('name',)
 
-class SpellsAssociation(models.Model):
-    character = models.ForeignKey(Character, related_name='spells_association')
-    spells = models.ForeignKey(Spells, related_name='spells_association')
+class SpellAssociation(models.Model):
+    character = models.ForeignKey(Character, related_name='spell_association')
+    spell = models.ForeignKey(Spell, related_name='spell_association')
     Prepared = models.BooleanField(default=False)
     
     class Meta:
-        ordering = ('spells',)
+        ordering = ('spell',)

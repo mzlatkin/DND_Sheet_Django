@@ -24,8 +24,8 @@ router.register(r'armor_association', views.ArmorAssociationViewSet)
 router.register(r'weapon', views.WeaponViewSet)
 router.register(r'weaponType', views.WeaponTypeViewSet)
 router.register(r'weapon_association', views.WeaponAssociationViewSet)
-router.register(r'spells', views.SpellsViewSet)
-router.register(r'spells_association', views.SpellsAssociationViewSet)
+router.register(r'spell', views.SpellViewSet)
+router.register(r'spell_association', views.SpellAssociationViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

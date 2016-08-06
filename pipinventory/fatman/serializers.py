@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from fatman.models import Character, CharacterDetail,CharClass,Size,CharClassAssociation,Race,Skill,SkillType,SkillAssociation,Attribute,AttributeAssociation,Feat,FeatAssociation,Item,ItemAssociation,Armor,ArmorAssociation,Weapon,WeaponType,WeaponAssociation,Spells,SpellsAssociation
+from fatman.models import Character, CharacterDetail,CharClass,Size,CharClassAssociation,Race,Skill,SkillType,SkillAssociation,Attribute,AttributeAssociation,Feat,FeatAssociation,Item,ItemAssociation,Armor,ArmorAssociation,Weapon,WeaponType,WeaponAssociation,Spell,SpellAssociation
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -54,7 +54,7 @@ class CharClassAssociationSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = CharClassAssociation
-        fields = ('pk', 'character',"char_class","level")
+        fields = ('pk', 'character','char_class','level')
 
 
 class RaceSerializer(serializers.HyperlinkedModelSerializer):
@@ -178,17 +178,17 @@ class WeaponAssociationSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('pk', 'weapon', 'item', 'amount', 'equiped')
 
 
-class SpellsSerializer(serializers.HyperlinkedModelSerializer):
+class SpellSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
-        model = Spells
+        model = Spell
         fields = ('pk', 'name', 'disscription')
 
 
-class SpellsAssociationSerializer(serializers.HyperlinkedModelSerializer):
+class SpellAssociationSerializer(serializers.HyperlinkedModelSerializer):
     character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
-    spells = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=SkillType.objects.all().select_related())
-    
+    spell = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=SkillType.objects.all().select_related())
+
     class Meta:
-        model = SpellsAssociation
-        fields = ('pk', 'character', 'spells')
+        model = SpellAssociation
+        fields = ('pk', 'character', 'spell')

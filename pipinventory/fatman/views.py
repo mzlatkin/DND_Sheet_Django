@@ -1,7 +1,7 @@
+from fatman.models import Character, CharacterDetail,CharClass,Size,CharClassAssociation,Race,Skill,SkillType,SkillAssociation,Attribute,AttributeAssociation,Feat,FeatAssociation,Item,ItemAssociation,Armor,ArmorAssociation,Weapon,WeaponType,WeaponAssociation,Spell,SpellAssociation
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from fatman.serializers import UserSerializer,CharacterSerializer,CharacterDetailSerializer
-from fatman.models import Character,CharacterDetail
 from rest_framework import permissions
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -31,7 +31,7 @@ class SizeViewSet(viewsets.ModelViewSet):
 
 
 class CharClassAssociationViewSet(viewsets.ModelViewSet):
-    queryset = CharClassAssociation.objects.all()
+    queryset = CharClassAssociation.objects.all().select_related('char_class','level')
     model = CharClassAssociation
     serializer_class = CharClassAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -59,7 +59,7 @@ class SkillTypeViewSet(viewsets.ModelViewSet):
 
 
 class SkillAssociationViewSet(viewsets.ModelViewSet):
-    queryset = SkillAssociation.objects.all()
+    queryset = SkillAssociation.objects.all().select_related('character', 'skill', 'attribute', 'skill_type')
     model = SkillAssociation
     serializer_class = SkillAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -73,7 +73,7 @@ class AttributeViewSet(viewsets.ModelViewSet):
 
 
 class AttributeAssociationViewSet(viewsets.ModelViewSet):
-    queryset = AttributeAssociation.objects.all()
+    queryset = AttributeAssociation.objects.all().select_related('character', 'attribute')
     model = AttributeAssociation
     serializer_class = AttributeAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -87,7 +87,7 @@ class FeatViewSet(viewsets.ModelViewSet):
 
 
 class FeatAssociationViewSet(viewsets.ModelViewSet):
-    queryset = FeatAssociation.objects.all()
+    queryset = FeatAssociation.objects.all().select_related('character', 'feat')
     model = FeatAssociation
     serializer_class = FeatAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -101,28 +101,28 @@ class ItemViewSet(viewsets.ModelViewSet):
 
 
 class ItemAssociationViewSet(viewsets.ModelViewSet):
-    queryset = ItemAssociation.objects.all()
+    queryset = ItemAssociation.objects.all().select_related('character', 'item')
     model = ItemAssociation
     serializer_class = ItemAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
 class ArmorViewSet(viewsets.ModelViewSet):
-    queryset = Armor.objects.all()
+    queryset = Armor.objects.all().select_related('item')
     model = Armor
     serializer_class = ArmorSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
 class ArmorAssociationViewSet(viewsets.ModelViewSet):
-    queryset = ArmorAssociation.objects.all()
+    queryset = ArmorAssociation.objects.all().select_related('armor', 'item')
     model = ArmorAssociation
     serializer_class = ArmorAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
 class WeaponViewSet(viewsets.ModelViewSet):
-    queryset = Weapon.objects.all()
+    queryset = Weapon.objects.all().select_related('item')
     model = Weapon
     serializer_class = WeaponSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -136,21 +136,21 @@ class WeaponTypeViewSet(viewsets.ModelViewSet):
 
 
 class WeaponAssociationViewSet(viewsets.ModelViewSet):
-    queryset = WeaponAssociation.objects.all()
+    queryset = WeaponAssociation.objects.all().select_related('weapon', 'item')
     model = WeaponAssociation
     serializer_class = WeaponAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
-class SpellsViewSet(viewsets.ModelViewSet):
-    queryset = Spells.objects.all()
-    model = Spells
-    serializer_class = SpellsSerializer
+class SpellViewSet(viewsets.ModelViewSet):
+    queryset = Spell.objects.all()
+    model = Spell
+    serializer_class = SpellSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
-class SpellsAssociationViewSet(viewsets.ModelViewSet):
-    queryset = SpellsAssociation.objects.all()
-    model = SpellsAssociation
-    serializer_class = SpellsAssociationSerializer
+class SpellAssociationViewSet(viewsets.ModelViewSet):
+    queryset = SpellAssociation.objects.all().select_related('character', 'spell')
+    model = SpellAssociation
+    serializer_class = SpellAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
