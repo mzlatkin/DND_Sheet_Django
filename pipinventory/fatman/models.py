@@ -120,7 +120,7 @@ class ItemAssociation(models.Model):
         ordering = ('item',)
 
 class Armor(models.Model):
-	item = models.ForeignKey(Item, related_name='armor')
+    item = models.ForeignKey(Item, related_name='armor')
     ac_bonus = models.IntegerField(default=0)
     max_dex = models.IntegerField(default=0)
     check_penalty = models.IntegerField(default=0)
@@ -140,8 +140,8 @@ class ArmorAssociation(models.Model):
         ordering = ('item',)
 
 class Weapon(models.Model):
-	item = models.ForeignKey(Item, related_name='weapon')
-	weapon_type = models.ForeignKey(WeaponType, related_name='weapon')
+    item = models.ForeignKey(Item, related_name='weapon')
+    weapon_type = models.ForeignKey(WeaponType, related_name='weapon')
     damage = models.TextField(default='')
     crit = models.TextField(default='')
     range_radius = models.TextField(default='')
