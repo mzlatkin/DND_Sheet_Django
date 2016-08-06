@@ -31,7 +31,7 @@ class Size(models.Model):
     size = models.TextField(default='')
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('size',)
 
 class CharClassAssociation(models.Model):
     character = models.ForeignKey(Character, related_name='char_class_association')
@@ -129,7 +129,7 @@ class Armor(models.Model):
     speed = models.IntegerField(default=0)
     
     class Meta:
-        ordering = ('name',)
+        ordering = ('item',)
 
 class ArmorAssociation(models.Model):
     armor = models.ForeignKey(Armor, related_name='armor_association')
@@ -157,7 +157,7 @@ class Weapon(models.Model):
     speed = models.IntegerField(default=0)
     
     class Meta:
-        ordering = ('name',)
+        ordering = ('item',)
 
 class WeaponAssociation(models.Model):
     weapon = models.ForeignKey(Weapon, related_name='weapon_association')
