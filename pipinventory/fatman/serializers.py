@@ -32,7 +32,7 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = CharacterDetail
-        fields = ('pk', 'character', 'gender', 'level', 'deity','alignment','base_attack_bonus')
+        fields = ('pk', 'character', 'gender', 'deity','alignment','base_attack_bonus')
 
 class CharClassSerializer(serializers.HyperlinkedModelSerializer):
 
