@@ -15,6 +15,12 @@ class CharacterViewSet(viewsets.ModelViewSet):
     serializer_class = CharacterSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+class CharacterDetailViewSet(viewsets.ModelViewSet):
+    queryset = CharacterDetail.objects.all()
+    model = CharacterDetail
+    serializer_class = CharacterDetailSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
 
 class CharClassViewSet(viewsets.ModelViewSet):
     queryset = CharClass.objects.all()
