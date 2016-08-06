@@ -8,7 +8,7 @@ class Character(models.Model):
     is_active =  models.BooleanField(default=True)
     
     class Meta:
-        ordering = ('character_name',)
+        ordering = ('name',)
 
 class CharacterDetail(models.Model):
     character = models.ForeignKey(Character, related_name='character_detail')
