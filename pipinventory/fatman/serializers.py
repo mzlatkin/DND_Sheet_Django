@@ -38,7 +38,7 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
 
 class GetDetailsByCharacterSerializer(serializers.HyperlinkedModelSerializer):
     character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
-    size = serializers.SlugRelatedField(slug_field='name',required=True,queryset=Size.objects.all().select_related())
+    size = serializers.SlugRelatedField(slug_field='size',required=True,queryset=Size.objects.all().select_related())
     race = serializers.SlugRelatedField(slug_field='name',required=True,queryset=Race.objects.all().select_related())
 
     class Meta:
