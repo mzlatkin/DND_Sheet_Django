@@ -10,9 +10,17 @@ class Character(models.Model):
     class Meta:
         ordering = ('name',)
 
+class Race(models.Model):
+    name = models.TextField(default='')
+
+    class Meta:
+        ordering = ('name',)
+
+
 class CharacterDetail(models.Model):
     character = models.ForeignKey(Character, related_name='character_detail')
-    #size = models.ForeignKey(Size, related_name='character_detail')
+    size = models.ForeignKey(Size, related_name='character_detail')
+    race = models.ForeignKey(Race, related_name='character_detail')
     gender = models.TextField(default='')
     deity = models.TextField(default='')
     alignment = models.TextField(default='')
@@ -21,17 +29,20 @@ class CharacterDetail(models.Model):
     class Meta:
         ordering = ('character',)
 
+
 class CharClass(models.Model):
     name = models.TextField(default='')
 
     class Meta:
         ordering = ('name',)
 
+
 class Size(models.Model):
     size = models.TextField(default='')
 
     class Meta:
         ordering = ('size',)
+
 
 class CharClassAssociation(models.Model):
     character = models.ForeignKey(Character, related_name='char_class_association')
@@ -41,11 +52,6 @@ class CharClassAssociation(models.Model):
     class Meta:
         ordering = ('level',)
 
-class Race(models.Model):
-    name = models.TextField(default='')
-
-    class Meta:
-        ordering = ('name',)
 
 class Attribute(models.Model):
     name = models.TextField(default='')
@@ -63,24 +69,28 @@ class AttributeAssociation(models.Model):
     class Meta:
         ordering = ('attribute',)
 
-class Skill(models.Model):
-    name = models.TextField(default='')
-    disscription = models.TextField(default='')
-
-    class Meta:
-        ordering = ('name',)
-
 class SkillType(models.Model):
     name = models.TextField(default='')
 
     class Meta:
         ordering = ('name',)
 
+
+class Skill(models.Model):
+    name = models.TextField(default='')
+    disscription = models.TextField(default='')
+    skill_type = models.ForeignKey(SkillType, related_name='skill')
+    attribute = models.ForeignKey(Attribute, related_name='skill')
+
+    class Meta:
+        ordering = ('name',)
+
+
 class SkillAssociation(models.Model):
     character = models.ForeignKey(Character, related_name='skill_association')
     skill = models.ForeignKey(Skill, related_name='skill_association')
-    attribute = models.ForeignKey(Attribute, related_name='skill_association')
-    skill_type = models.ForeignKey(SkillType, related_name='skill_association')
+    
+    
     rank = models.IntegerField(default=0)
     effect = models.IntegerField(default=0)
     

@@ -29,10 +29,12 @@ class CharacterSerializer(serializers.HyperlinkedModelSerializer):
 
 class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
     character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
+    size = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Size.objects.all().select_related())
+    race = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Race.objects.all().select_related())
 
     class Meta:
         model = CharacterDetail
-        fields = ('pk', 'character', 'gender', 'deity','alignment','base_attack_bonus')
+        fields = ('pk', 'character','race','size', 'gender', 'deity','alignment','base_attack_bonus')
 
 class CharClassSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -65,10 +67,12 @@ class RaceSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class SkillSerializer(serializers.HyperlinkedModelSerializer):
-
+	skill_type = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=SkillType.objects.all().select_related())
+    attribute = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Attribute.objects.all().select_related())
+    
     class Meta:
         model = Skill
-        fields = ('pk', 'name', 'disscription')
+        fields = ('pk', 'name', 'skill_type','attribute','disscription')
 
 
 class SkillTypeSerializer(serializers.HyperlinkedModelSerializer):
@@ -81,12 +85,11 @@ class SkillTypeSerializer(serializers.HyperlinkedModelSerializer):
 class SkillAssociationSerializer(serializers.HyperlinkedModelSerializer):
     character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
     skill = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Skill.objects.all().select_related())
-    attribute = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Attribute.objects.all().select_related())
-    skill_type = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=SkillType.objects.all().select_related())
+    
 
     class Meta:
         model = SkillAssociation
-        fields = ('pk', 'character', 'skill', 'attribute', 'skill_type','rank', 'effect')
+        fields = ('pk', 'character', 'skill','rank', 'effect')
 
 
 class AttributeSerializer(serializers.HyperlinkedModelSerializer):

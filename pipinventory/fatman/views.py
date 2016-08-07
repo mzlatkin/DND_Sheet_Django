@@ -20,13 +20,13 @@ class CharacterViewSet(viewsets.ModelViewSet):
     filter_fields = ('account', 'name', 'created', 'updated','is_active',)
 
 class CharacterDetailViewSet(viewsets.ModelViewSet):
-    queryset = CharacterDetail.objects.all()
+    queryset = CharacterDetail.objects.all().select_related('character','size','race')
     model = CharacterDetail
     serializer_class = CharacterDetailSerializer
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('character', 'gender', 'deity','alignment','base_attack_bonus',)
+    filter_fields = ('character', 'gender', 'deity','alignment','base_attack_bonus','size','race',)
 
 
 class CharClassViewSet(viewsets.ModelViewSet):
@@ -80,23 +80,23 @@ class SkillViewSet(viewsets.ModelViewSet):
 
 
 class SkillTypeViewSet(viewsets.ModelViewSet):
-    queryset = SkillType.objects.all()
+    queryset = SkillType.objects.all().select_related('attribute', 'skill_type')
     model = SkillType
     serializer_class = SkillTypeSerializer
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('name',)
+    filter_fields = ('name','attribute', 'skill_type',)
 
 
 class SkillAssociationViewSet(viewsets.ModelViewSet):
-    queryset = SkillAssociation.objects.all().select_related('character', 'skill', 'attribute', 'skill_type')
+    queryset = SkillAssociation.objects.all().select_related('character', 'skill')
     model = SkillAssociation
     serializer_class = SkillAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('character', 'skill', 'attribute', 'skill_type','rank', 'effect',)
+    filter_fields = ('character', 'skill','rank', 'effect',)
 
 
 class AttributeViewSet(viewsets.ModelViewSet):
