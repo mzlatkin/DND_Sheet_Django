@@ -36,6 +36,15 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
         model = CharacterDetail
         fields = ('pk', 'character','race','size', 'gender', 'deity','alignment','base_attack_bonus')
 
+class GetDetailsByCharacterSerializer(serializers.HyperlinkedModelSerializer):
+    character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
+    size = serializers.SlugRelatedField(slug_field='name',required=True,queryset=Size.objects.all().select_related())
+    race = serializers.SlugRelatedField(slug_field='name',required=True,queryset=Race.objects.all().select_related())
+
+    class Meta:
+        model = CharacterDetail
+        fields = ('pk', 'character','race','size', 'gender', 'deity','alignment','base_attack_bonus')
+
 class CharClassSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
