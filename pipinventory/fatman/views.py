@@ -50,7 +50,7 @@ class SizeViewSet(viewsets.ModelViewSet):
 
 
 class CharClassAssociationViewSet(viewsets.ModelViewSet):
-    queryset = CharClassAssociation.objects.all().select_related('char_class','level')
+    queryset = CharClassAssociation.objects.all().select_related('char_class','character')
     model = CharClassAssociation
     serializer_class = CharClassAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
