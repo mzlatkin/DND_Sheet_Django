@@ -1,5 +1,6 @@
 from fatman.serializers import UserSerializer, CharacterSerializer, CharacterDetailSerializer,CharClassSerializer,SizeSerializer,CharClassAssociationSerializer,RaceSerializer,SkillSerializer,SkillTypeSerializer,SkillAssociationSerializer,AttributeSerializer,AttributeAssociationSerializer,FeatSerializer,FeatAssociationSerializer,ItemSerializer,ItemAssociationSerializer,ArmorSerializer,ArmorAssociationSerializer,WeaponSerializer,WeaponTypeSerializer,WeaponAssociationSerializer,SpellSerializer,SpellAssociationSerializer
 from fatman.models import Character, CharacterDetail,CharClass,Size,CharClassAssociation,Race,Skill,SkillType,SkillAssociation,Attribute,AttributeAssociation,Feat,FeatAssociation,Item,ItemAssociation,Armor,ArmorAssociation,Weapon,WeaponType,WeaponAssociation,Spell,SpellAssociation
+from rest_framework.decorators import detail_route, list_route
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from rest_framework import viewsets
@@ -19,6 +20,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('account', 'name', 'created', 'updated','is_active',)
 
+
 class CharacterDetailViewSet(viewsets.ModelViewSet):
     queryset = CharacterDetail.objects.all().select_related('character','size','race')
     model = CharacterDetail
@@ -27,6 +29,18 @@ class CharacterDetailViewSet(viewsets.ModelViewSet):
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('character', 'gender', 'deity','alignment','base_attack_bonus','size','race',)
+
+    @list_route(methods=['get'])
+    def get_details_by_character(self, request, format=None):
+        character = self.request.query_params.get('character', None)
+        ret = None
+        try:
+            ret = CharacterDetail.objects.filter(character=character)
+            ret = CharacterDetailSerializer(ret, many=True)
+        except Exception as e:
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(ret.data)
 
 
 class CharClassViewSet(viewsets.ModelViewSet):
