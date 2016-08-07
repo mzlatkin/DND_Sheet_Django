@@ -163,7 +163,6 @@ class Weapon(models.Model):
     damage = models.TextField(default='')
     crit = models.TextField(default='')
     range_radius = models.TextField(default='')
-    speed = models.IntegerField(default=0)
     
     class Meta:
         ordering = ('item',)

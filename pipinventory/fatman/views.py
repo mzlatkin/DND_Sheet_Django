@@ -186,7 +186,7 @@ class WeaponViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('item', 'weapon_type', 'damage', 'crit', 'range_radius', 'speed',)
+    filter_fields = ('item', 'weapon_type', 'damage', 'crit', 'range_radius',)
 
 
 class WeaponTypeViewSet(viewsets.ModelViewSet):

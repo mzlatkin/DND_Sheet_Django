@@ -162,7 +162,7 @@ class WeaponSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Weapon
-        fields = ('pk', 'item', 'weapon_type', 'damage', 'crit', 'range_radius', 'speed')
+        fields = ('pk', 'item', 'weapon_type', 'damage', 'crit', 'range_radius')
 
 
 class WeaponTypeSerializer(serializers.HyperlinkedModelSerializer):
