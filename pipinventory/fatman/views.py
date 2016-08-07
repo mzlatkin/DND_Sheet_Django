@@ -1,4 +1,4 @@
-from fatman.serializers import UserSerializer, CharacterSerializer, CharacterDetailSerializer,CharClassSerializer,SizeSerializer,CharClassAssociationSerializer,RaceSerializer,SkillSerializer,SkillTypeSerializer,SkillAssociationSerializer,AttributeSerializer,AttributeAssociationSerializer,FeatSerializer,FeatAssociationSerializer,ItemSerializer,ItemAssociationSerializer,ArmorSerializer,ArmorAssociationSerializer,WeaponSerializer,WeaponTypeSerializer,WeaponAssociationSerializer,SpellSerializer,SpellAssociationSerializer, GetDetailsByCharacterSerializer,GetCharClassByCharacterSerializer,GetSkillAssociationByCharacterSerializer
+from fatman.serializers import UserSerializer, CharacterSerializer, CharacterDetailSerializer,CharClassSerializer,SizeSerializer,CharClassAssociationSerializer,RaceSerializer,SkillSerializer,SkillTypeSerializer,SkillAssociationSerializer,AttributeSerializer,AttributeAssociationSerializer,FeatSerializer,FeatAssociationSerializer,ItemSerializer,ItemAssociationSerializer,ArmorSerializer,ArmorAssociationSerializer,WeaponSerializer,WeaponTypeSerializer,WeaponAssociationSerializer,SpellSerializer,SpellAssociationSerializer, GetDetailsByCharacterSerializer,GetCharClassByCharacterSerializer,GetSkillAssociationByCharacterSerializer,GetAttributeAssociationByCharacterSerializer,GetFeatAssociationByCharacterSerializer,GetItemAssociationByCharacterSerializer, GetArmorAssociationByCharacterSerializer, GetWeaponAssociationByCharacterSerializer, GetSpellAssociationByCharacterSerializer
 from fatman.models import Character, CharacterDetail,CharClass,Size,CharClassAssociation,Race,Skill,SkillType,SkillAssociation,Attribute,AttributeAssociation,Feat,FeatAssociation,Item,ItemAssociation,Armor,ArmorAssociation,Weapon,WeaponType,WeaponAssociation,Spell,SpellAssociation
 from rest_framework.decorators import detail_route, list_route
 from django.contrib.auth.models import User
@@ -160,6 +160,19 @@ class AttributeAssociationViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('character', 'attribute', 'rank', 'effect',)
 
+    @list_route(methods=['get'])
+    def get_attribute_association_by_character(self, request, format=None):
+        character = self.request.query_params.get('character', None)
+        ret = None
+        try:
+            ret = AttributeAssociation.objects.filter(character=character)
+            ret = GetAttributeAssociationByCharacterSerializer(ret, many=True)
+        except Exception as e:
+            print(e);
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(ret.data)
+
 
 class FeatViewSet(viewsets.ModelViewSet):
     queryset = Feat.objects.all()
@@ -179,6 +192,19 @@ class FeatAssociationViewSet(viewsets.ModelViewSet):
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('character', 'feat', 'rank',)
+
+    @list_route(methods=['get'])
+    def get_feat_association_by_character(self, request, format=None):
+        character = self.request.query_params.get('character', None)
+        ret = None
+        try:
+            ret = FeatAssociation.objects.filter(character=character)
+            ret = GetFeatAssociationByCharacterSerializer(ret, many=True)
+        except Exception as e:
+            print(e);
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(ret.data)
 
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -200,6 +226,19 @@ class ItemAssociationViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('character', 'item', 'amount',)
 
+    @list_route(methods=['get'])
+    def get_item_association_by_character(self, request, format=None):
+        character = self.request.query_params.get('character', None)
+        ret = None
+        try:
+            ret = ItemAssociation.objects.filter(character=character)
+            ret = GetItemAssociationByCharacterSerializer(ret, many=True)
+        except Exception as e:
+            print(e);
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(ret.data)
+
 
 class ArmorViewSet(viewsets.ModelViewSet):
     queryset = Armor.objects.all().select_related('item')
@@ -219,6 +258,19 @@ class ArmorAssociationViewSet(viewsets.ModelViewSet):
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('armor','character', 'amount', 'equipped',)
+
+    @list_route(methods=['get'])
+    def get_armor_association_by_character(self, request, format=None):
+        character = self.request.query_params.get('character', None)
+        ret = None
+        try:
+            ret = ArmorAssociation.objects.filter(character=character)
+            ret = GetArmorAssociationByCharacterSerializer(ret, many=True)
+        except Exception as e:
+            print(e);
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(ret.data)
 
 
 class WeaponViewSet(viewsets.ModelViewSet):
@@ -250,6 +302,19 @@ class WeaponAssociationViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('weapon','character', 'amount', 'equipped',)
 
+    @list_route(methods=['get'])
+    def get_weapon_association_by_character(self, request, format=None):
+        character = self.request.query_params.get('character', None)
+        ret = None
+        try:
+            ret = WeaponAssociation.objects.filter(character=character)
+            ret = GetWeaponAssociationByCharacterSerializer(ret, many=True)
+        except Exception as e:
+            print(e);
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(ret.data)
+
 
 class SpellViewSet(viewsets.ModelViewSet):
     queryset = Spell.objects.all()
@@ -269,3 +334,16 @@ class SpellAssociationViewSet(viewsets.ModelViewSet):
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('character', 'spell','prepared')
+
+    @list_route(methods=['get'])
+    def get_spell_association_by_character(self, request, format=None):
+        character = self.request.query_params.get('character', None)
+        ret = None
+        try:
+            ret = SpellAssociation.objects.filter(character=character)
+            ret = GetSpellAssociationByCharacterSerializer(ret, many=True)
+        except Exception as e:
+            print(e);
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(ret.data)
