@@ -67,7 +67,7 @@ class RaceSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class SkillSerializer(serializers.HyperlinkedModelSerializer):
-	skill_type = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=SkillType.objects.all().select_related())
+    skill_type = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=SkillType.objects.all().select_related())
     attribute = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Attribute.objects.all().select_related())
     
     class Meta:
