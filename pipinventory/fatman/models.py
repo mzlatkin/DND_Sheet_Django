@@ -16,6 +16,12 @@ class Race(models.Model):
     class Meta:
         ordering = ('name',)
 
+class Size(models.Model):
+    size = models.TextField(default='')
+
+    class Meta:
+        ordering = ('size',)
+
 
 class CharacterDetail(models.Model):
     character = models.ForeignKey(Character, related_name='character_detail')
@@ -37,11 +43,7 @@ class CharClass(models.Model):
         ordering = ('name',)
 
 
-class Size(models.Model):
-    size = models.TextField(default='')
 
-    class Meta:
-        ordering = ('size',)
 
 
 class CharClassAssociation(models.Model):
