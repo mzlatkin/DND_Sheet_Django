@@ -194,4 +194,4 @@ class SpellAssociationSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = SpellAssociation
-        fields = ('pk', 'character', 'spell')
+        fields = ('pk', 'character', 'spell','prepared')

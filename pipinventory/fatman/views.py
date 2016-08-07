@@ -226,4 +226,4 @@ class SpellAssociationViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('character', 'spell',)
+    filter_fields = ('character', 'spell','prepared')

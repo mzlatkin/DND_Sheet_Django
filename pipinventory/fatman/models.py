@@ -186,7 +186,7 @@ class Spell(models.Model):
 class SpellAssociation(models.Model):
     character = models.ForeignKey(Character, related_name='spell_association')
     spell = models.ForeignKey(Spell, related_name='spell_association')
-    Prepared = models.BooleanField(default=False)
+    prepared = models.BooleanField(default=False)
     
     class Meta:
         ordering = ('spell',)
