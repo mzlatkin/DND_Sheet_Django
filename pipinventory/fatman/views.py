@@ -133,7 +133,7 @@ class SkillAssociationViewSet(viewsets.ModelViewSet):
         ret = None
         try:
             ret = SkillAssociation.objects.filter(character=character)
-            ret = SkillAssociationSerializer(ret, many=True)
+            ret = GetSkillAssociationByCharacterSerializer(ret, many=True)
         except Exception as e:
             print(e);
             return Response({},status=status.HTTP_400_BAD_REQUEST)
