@@ -214,6 +214,12 @@ class ArmorAssociationSerializer(serializers.HyperlinkedModelSerializer):
         model = ArmorAssociation
         fields = ('pk', 'armor','character', 'amount', 'equipped')
 
+class ReadableArmorSerializer(serializers.HyperlinkedModelSerializer):
+    item = ItemSerializer(read_only=True)
+    
+    class Meta:
+        model = Armor
+        fields = ('pk', 'item', 'ac_bonus', 'max_dex', 'check_penalty', 'spell_fail', 'speed')
 
 class GetArmorAssociationByCharacterSerializer(serializers.HyperlinkedModelSerializer):
     armor = ReadableArmorSerializer(read_only=True)
@@ -222,14 +228,6 @@ class GetArmorAssociationByCharacterSerializer(serializers.HyperlinkedModelSeria
     class Meta:
         model = ArmorAssociation
         fields = ('pk', 'armor','character', 'amount', 'equipped')
-
-class ReadableArmorSerializer(serializers.HyperlinkedModelSerializer):
-    item = ItemSerializer(read_only=True)
-    
-    class Meta:
-        model = Armor
-        fields = ('pk', 'item', 'ac_bonus', 'max_dex', 'check_penalty', 'spell_fail', 'speed')
-
 
 class WeaponSerializer(serializers.HyperlinkedModelSerializer):
     item = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Item.objects.all().select_related())
@@ -290,7 +288,7 @@ class SpellAssociationSerializer(serializers.HyperlinkedModelSerializer):
 class GetSpellAssociationByCharacterSerializer(serializers.HyperlinkedModelSerializer):
     character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
     spell = SpellSerializer(read_only=True)
-    
+
     class Meta:
         model = SpellAssociation
         fields = ('pk', 'character', 'spell','prepared')
