@@ -191,7 +191,7 @@ class SpellSerializer(serializers.HyperlinkedModelSerializer):
 
 class SpellAssociationSerializer(serializers.HyperlinkedModelSerializer):
     character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
-    spell = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=SkillType.objects.all().select_related())
+    spell = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Spell.objects.all().select_related())
 
     class Meta:
         model = SpellAssociation
