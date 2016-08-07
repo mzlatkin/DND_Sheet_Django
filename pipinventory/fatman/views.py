@@ -74,6 +74,19 @@ class CharClassAssociationViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('character','char_class','level',)
 
+    @list_route(methods=['get'])
+    def get_char_class_by_character(self, request, format=None):
+        character = self.request.query_params.get('character', None)
+        ret = None
+        try:
+            ret = CharClassAssociation.objects.filter(character=character)
+            ret = GetCharClassByCharacterSerializer(ret, many=True)
+        except Exception as e:
+            print(e);
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(ret.data)
+
 
 class RaceViewSet(viewsets.ModelViewSet):
     queryset = Race.objects.all()
@@ -113,6 +126,19 @@ class SkillAssociationViewSet(viewsets.ModelViewSet):
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('character', 'skill','rank', 'effect',)
+
+    @list_route(methods=['get'])
+    def get_skill_association_by_character(self, request, format=None):
+        character = self.request.query_params.get('character', None)
+        ret = None
+        try:
+            ret = SkillAssociation.objects.filter(character=character)
+            ret = GetSkillAssociationByCharacterSerializer(ret, many=True)
+        except Exception as e:
+            print(e);
+            return Response({},status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(ret.data)
 
 
 class AttributeViewSet(viewsets.ModelViewSet):
