@@ -43,9 +43,6 @@ class CharClass(models.Model):
         ordering = ('name',)
 
 
-
-
-
 class CharClassAssociation(models.Model):
     character = models.ForeignKey(Character, related_name='char_class_association')
     char_class = models.ForeignKey(CharClass, related_name='char_class_association')

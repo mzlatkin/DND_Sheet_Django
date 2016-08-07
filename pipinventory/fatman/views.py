@@ -70,23 +70,23 @@ class RaceViewSet(viewsets.ModelViewSet):
 
 
 class SkillViewSet(viewsets.ModelViewSet):
-    queryset = Skill.objects.all()
+    queryset = Skill.objects.all().select_related('attribute', 'skill_type')
     model = Skill
     serializer_class = SkillSerializer
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('name', 'disscription',)
+    filter_fields = ('name', 'disscription','attribute', 'skill_type',)
 
 
 class SkillTypeViewSet(viewsets.ModelViewSet):
-    queryset = SkillType.objects.all().select_related('attribute', 'skill_type')
+    queryset = SkillType.objects.all()
     model = SkillType
     serializer_class = SkillTypeSerializer
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('name','attribute', 'skill_type',)
+    filter_fields = ('name',)
 
 
 class SkillAssociationViewSet(viewsets.ModelViewSet):
