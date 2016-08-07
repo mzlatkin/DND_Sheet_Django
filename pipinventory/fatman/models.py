@@ -142,6 +142,7 @@ class Armor(models.Model):
 
 class ArmorAssociation(models.Model):
     armor = models.ForeignKey(Armor, related_name='armor_association')
+    character = models.ForeignKey(Character, related_name='armor_association')
     amount = models.IntegerField(default=0)
     equipped = models.BooleanField(default=False)
     
@@ -168,7 +169,7 @@ class Weapon(models.Model):
 
 class WeaponAssociation(models.Model):
     weapon = models.ForeignKey(Weapon, related_name='weapon_association')
-    character = models.ForeignKey(Character, related_name='item_association')
+    character = models.ForeignKey(Character, related_name='weapon_association')
     amount = models.IntegerField(default=0)
     equipped = models.BooleanField(default=False)
 
