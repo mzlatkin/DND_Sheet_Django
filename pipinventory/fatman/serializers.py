@@ -108,16 +108,21 @@ class SkillAssociationSerializer(serializers.HyperlinkedModelSerializer):
         model = SkillAssociation
         fields = ('pk', 'character', 'skill','rank', 'effect')
 
+class ReadableSkillSerializer(serializers.HyperlinkedModelSerializer):
+    skill_type = serializers.SlugRelatedField(slug_field='name',required=True,queryset=SkillType.objects.all().select_related())
+    attribute = serializers.SlugRelatedField(slug_field='name',required=True,queryset=Attribute.objects.all().select_related())
+    
+    class Meta:
+        model = Skill
+        fields = ('pk', 'name', 'skill_type','attribute','disscription')
+
 class GetSkillAssociationByCharacterSerializer(serializers.HyperlinkedModelSerializer):
     character = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Character.objects.all().select_related())
-    skill = serializers.SlugRelatedField(slug_field='name',required=True,queryset=Skill.objects.all().select_related())
-    attribute = serializers.SlugRelatedField(slug_field='attribute',required=True,queryset=Skill.objects.all().select_related())
-    skill_type = serializers.SlugRelatedField(slug_field='skill_type',required=True,queryset=Skill.objects.all().select_related())
-    
+    skill = ReadableSkillSerializer(read_only=True)
 
     class Meta:
         model = SkillAssociation
-        fields = ('pk', 'character', 'skill','rank', 'effect','attribute','skill_type')
+        fields = ('pk', 'character', 'skill','rank', 'effect')
 
 
 class AttributeSerializer(serializers.HyperlinkedModelSerializer):
