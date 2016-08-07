@@ -39,6 +39,7 @@ class CharacterDetailViewSet(viewsets.ModelViewSet):
             ret = CharacterDetail.objects.filter(character=character)
             ret = GetDetailsByCharacterSerializer(ret, many=True)
         except Exception as e:
+            print(e);
             return Response({},status=status.HTTP_400_BAD_REQUEST)
 
         return Response(ret.data)
