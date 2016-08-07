@@ -159,6 +159,7 @@ class ArmorAssociationSerializer(serializers.HyperlinkedModelSerializer):
 
 class WeaponSerializer(serializers.HyperlinkedModelSerializer):
     item = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=Item.objects.all().select_related())
+    weapon_type = serializers.SlugRelatedField(slug_field='pk',required=True,queryset=WeaponType.objects.all().select_related())
 
     class Meta:
         model = Weapon
