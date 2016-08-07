@@ -1,2 +1,3 @@
 env/
 *.pyc
+pipinventory/fatman/migrations/
