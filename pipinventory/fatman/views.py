@@ -170,7 +170,7 @@ class ArmorViewSet(viewsets.ModelViewSet):
 
 
 class ArmorAssociationViewSet(viewsets.ModelViewSet):
-    queryset = ArmorAssociation.objects.all().select_related('armor', 'item')
+    queryset = ArmorAssociation.objects.all().select_related('armor', 'character')
     model = ArmorAssociation
     serializer_class = ArmorAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -200,7 +200,7 @@ class WeaponTypeViewSet(viewsets.ModelViewSet):
 
 
 class WeaponAssociationViewSet(viewsets.ModelViewSet):
-    queryset = WeaponAssociation.objects.all().select_related('weapon', 'item')
+    queryset = WeaponAssociation.objects.all().select_related('weapon', 'character')
     model = WeaponAssociation
     serializer_class = WeaponAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
