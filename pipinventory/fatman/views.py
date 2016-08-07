@@ -1,8 +1,9 @@
 from fatman.serializers import UserSerializer, CharacterSerializer, CharacterDetailSerializer,CharClassSerializer,SizeSerializer,CharClassAssociationSerializer,RaceSerializer,SkillSerializer,SkillTypeSerializer,SkillAssociationSerializer,AttributeSerializer,AttributeAssociationSerializer,FeatSerializer,FeatAssociationSerializer,ItemSerializer,ItemAssociationSerializer,ArmorSerializer,ArmorAssociationSerializer,WeaponSerializer,WeaponTypeSerializer,WeaponAssociationSerializer,SpellSerializer,SpellAssociationSerializer
 from fatman.models import Character, CharacterDetail,CharClass,Size,CharClassAssociation,Race,Skill,SkillType,SkillAssociation,Attribute,AttributeAssociation,Feat,FeatAssociation,Item,ItemAssociation,Armor,ArmorAssociation,Weapon,WeaponType,WeaponAssociation,Spell,SpellAssociation
 from django.contrib.auth.models import User
-from rest_framework import viewsets
 from rest_framework import permissions
+from rest_framework import viewsets
+from rest_framework import filters
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -14,12 +15,18 @@ class CharacterViewSet(viewsets.ModelViewSet):
     model = Character
     serializer_class = CharacterSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('account', 'name', 'created', 'updated','is_active',)
 
 class CharacterDetailViewSet(viewsets.ModelViewSet):
     queryset = CharacterDetail.objects.all()
     model = CharacterDetail
     serializer_class = CharacterDetailSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('character', 'gender', 'deity','alignment','base_attack_bonus',)
 
 
 class CharClassViewSet(viewsets.ModelViewSet):
@@ -27,6 +34,9 @@ class CharClassViewSet(viewsets.ModelViewSet):
     model = CharClass
     serializer_class = CharClassSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name',)
 
 
 class SizeViewSet(viewsets.ModelViewSet):
@@ -34,6 +44,9 @@ class SizeViewSet(viewsets.ModelViewSet):
     model = Size
     serializer_class = SizeSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('size',)
 
 
 class CharClassAssociationViewSet(viewsets.ModelViewSet):
@@ -41,6 +54,9 @@ class CharClassAssociationViewSet(viewsets.ModelViewSet):
     model = CharClassAssociation
     serializer_class = CharClassAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('character','char_class','level',)
 
 
 class RaceViewSet(viewsets.ModelViewSet):
@@ -48,6 +64,9 @@ class RaceViewSet(viewsets.ModelViewSet):
     model = Race
     serializer_class = RaceSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name',)
 
 
 class SkillViewSet(viewsets.ModelViewSet):
@@ -55,6 +74,9 @@ class SkillViewSet(viewsets.ModelViewSet):
     model = Skill
     serializer_class = SkillSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name', 'disscription',)
 
 
 class SkillTypeViewSet(viewsets.ModelViewSet):
@@ -62,6 +84,9 @@ class SkillTypeViewSet(viewsets.ModelViewSet):
     model = SkillType
     serializer_class = SkillTypeSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name',)
 
 
 class SkillAssociationViewSet(viewsets.ModelViewSet):
@@ -69,6 +94,9 @@ class SkillAssociationViewSet(viewsets.ModelViewSet):
     model = SkillAssociation
     serializer_class = SkillAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('character', 'skill', 'attribute', 'skill_type','rank', 'effect',)
 
 
 class AttributeViewSet(viewsets.ModelViewSet):
@@ -76,6 +104,9 @@ class AttributeViewSet(viewsets.ModelViewSet):
     model = Attribute
     serializer_class = AttributeSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name', 'disscription',)
 
 
 class AttributeAssociationViewSet(viewsets.ModelViewSet):
@@ -83,6 +114,9 @@ class AttributeAssociationViewSet(viewsets.ModelViewSet):
     model = AttributeAssociation
     serializer_class = AttributeAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('character', 'attribute', 'rank', 'effect',)
 
 
 class FeatViewSet(viewsets.ModelViewSet):
@@ -90,6 +124,9 @@ class FeatViewSet(viewsets.ModelViewSet):
     model = Feat
     serializer_class = FeatSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name', 'disscription', 'benefit',)
 
 
 class FeatAssociationViewSet(viewsets.ModelViewSet):
@@ -97,6 +134,9 @@ class FeatAssociationViewSet(viewsets.ModelViewSet):
     model = FeatAssociation
     serializer_class = FeatAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('character', 'feat', 'rank',)
 
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -104,6 +144,9 @@ class ItemViewSet(viewsets.ModelViewSet):
     model = Item
     serializer_class = ItemSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name', 'weight', 'cost',)
 
 
 class ItemAssociationViewSet(viewsets.ModelViewSet):
@@ -111,6 +154,9 @@ class ItemAssociationViewSet(viewsets.ModelViewSet):
     model = ItemAssociation
     serializer_class = ItemAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('character', 'item', 'amount',)
 
 
 class ArmorViewSet(viewsets.ModelViewSet):
@@ -118,6 +164,9 @@ class ArmorViewSet(viewsets.ModelViewSet):
     model = Armor
     serializer_class = ArmorSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('item', 'ac_bonus', 'max_dex', 'check_penalty', 'spell_fail', 'speed',)
 
 
 class ArmorAssociationViewSet(viewsets.ModelViewSet):
@@ -125,6 +174,9 @@ class ArmorAssociationViewSet(viewsets.ModelViewSet):
     model = ArmorAssociation
     serializer_class = ArmorAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('armor', 'item', 'amount', 'equiped',)
 
 
 class WeaponViewSet(viewsets.ModelViewSet):
@@ -132,6 +184,9 @@ class WeaponViewSet(viewsets.ModelViewSet):
     model = Weapon
     serializer_class = WeaponSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('item', 'weapon_type', 'damage', 'crit', 'range_radius', 'speed',)
 
 
 class WeaponTypeViewSet(viewsets.ModelViewSet):
@@ -139,6 +194,9 @@ class WeaponTypeViewSet(viewsets.ModelViewSet):
     model = WeaponType
     serializer_class = WeaponTypeSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('weapon_type',)
 
 
 class WeaponAssociationViewSet(viewsets.ModelViewSet):
@@ -146,6 +204,9 @@ class WeaponAssociationViewSet(viewsets.ModelViewSet):
     model = WeaponAssociation
     serializer_class = WeaponAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('weapon', 'item', 'amount', 'equiped',)
 
 
 class SpellViewSet(viewsets.ModelViewSet):
@@ -153,6 +214,9 @@ class SpellViewSet(viewsets.ModelViewSet):
     model = Spell
     serializer_class = SpellSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name', 'disscription',)
 
 
 class SpellAssociationViewSet(viewsets.ModelViewSet):
@@ -160,3 +224,6 @@ class SpellAssociationViewSet(viewsets.ModelViewSet):
     model = SpellAssociation
     serializer_class = SpellAssociationSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    paginator=None
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('character', 'spell',)
