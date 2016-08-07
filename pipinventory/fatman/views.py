@@ -176,7 +176,7 @@ class ArmorAssociationViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('armor', 'item', 'amount', 'equiped',)
+    filter_fields = ('armor','character', 'amount', 'equipped',)
 
 
 class WeaponViewSet(viewsets.ModelViewSet):
@@ -196,7 +196,7 @@ class WeaponTypeViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('weapon_type',)
+    filter_fields = ('name',)
 
 
 class WeaponAssociationViewSet(viewsets.ModelViewSet):
@@ -206,7 +206,7 @@ class WeaponAssociationViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     paginator=None
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('weapon', 'item', 'amount', 'equiped',)
+    filter_fields = ('weapon','character', 'amount', 'equipped',)
 
 
 class SpellViewSet(viewsets.ModelViewSet):

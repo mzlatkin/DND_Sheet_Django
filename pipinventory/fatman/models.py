@@ -142,19 +142,18 @@ class Armor(models.Model):
 
 class ArmorAssociation(models.Model):
     armor = models.ForeignKey(Armor, related_name='armor_association')
-    item = models.ForeignKey(Item, related_name='armor_association')
     amount = models.IntegerField(default=0)
-    equiped = models.BooleanField(default=False)
+    equipped = models.BooleanField(default=False)
     
     class Meta:
-        ordering = ('item',)
+        ordering = ('armor',)
 
 
 class WeaponType(models.Model):
-    weapon_type = models.TextField(default='')
+    name = models.TextField(default='')
 
     class Meta:
-        ordering = ('weapon_type',)
+        ordering = ('name',)
 
 
 class Weapon(models.Model):
@@ -169,12 +168,12 @@ class Weapon(models.Model):
 
 class WeaponAssociation(models.Model):
     weapon = models.ForeignKey(Weapon, related_name='weapon_association')
-    item = models.ForeignKey(Item, related_name='weapon_association')
+    character = models.ForeignKey(Character, related_name='item_association')
     amount = models.IntegerField(default=0)
-    equiped = models.BooleanField(default=False)
+    equipped = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ('item',)
+        ordering = ('weapon',)
 
 class Spell(models.Model):
     name = models.TextField(default='')
